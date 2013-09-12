@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>ClassImplementation</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>#pragma mark 键盘事件
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter addObserver:self selector:@selector(handleKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [notificationCenter addObserver:self selector:@selector(handleKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+#ifdef __IPHONE_5_0
+    float version = [[[UIDevice currentDevice] systemVersion] floatValue];
+    if (version &gt;= 5.0f) {
+        [notificationCenter addObserver:self selector:@selector(handleKeyboardWillShow:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    }
+#endif
+}
+
+- (void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter removeObserver:self];
+}
+
+#pragma mark 处理键盘事件
+
+- (void) handleKeyboardWillShow:(NSNotification *)paramNotification {
+    NSDictionary *userInfo = [paramNotification userInfo];
+    NSValue *animationCurveObject = [userInfo valueForKey:UIKeyboardAnimationCurveUserInfoKey];
+    NSValue *animationDurationObject = [userInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSValue *keyboardEndRectObject = [userInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
+    
+    NSUInteger animationCurve = 0;
+    double animationDuration = 0.50f;
+    CGRect keyboardEndRect = CGRectZero;
+    
+    [animationCurveObject getValue:&amp;animationCurve];
+    [animationDurationObject getValue:&amp;animationDuration];
+    [keyboardEndRectObject getValue:&amp;keyboardEndRect];
+    
+    NSInteger keyboardTop = keyboardEndRect.origin.y;
+    CGRect viewFrame = [currentView.superview convertRect:currentView.frame toView:self.view];
+    if (keyboardTop &lt; (viewFrame.origin.y + viewFrame.size.height)) {
+        NSInteger yOffset = keyboardTop - (viewFrame.origin.y + viewFrame.size.height);
+        CGRect viewRect = self.scrollView.frame;
+        viewRect.origin.y = yOffset;
+        
+        [UIView beginAnimations:@"changeViewContentInset" context:NULL];
+        [UIView setAnimationDuration:animationDuration];
+        self.scrollView.frame = viewRect;
+        [self.view sendSubviewToBack:self.scrollView];
+        
+        [UIView commitAnimations];
+    }
+}
+
+- (void) handleKeyboardWillHide:(NSNotification *)paramNotification {
+    NSDictionary *userInfo = [paramNotification userInfo];
+    NSValue *animationCurveObject = [userInfo valueForKey:UIKeyboardAnimationCurveUserInfoKey];
+    NSValue *animationDurationObject = [userInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSValue *keyboardEndRectObject = [userInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
+    
+    NSUInteger animationCurve = 0;
+    double animationDuration = 0.50f;
+    CGRect keyboardEndRect = CGRectZero;
+    
+    [animationCurveObject getValue:&amp;animationCurve];
+    [animationDurationObject getValue:&amp;animationDuration];
+    [keyboardEndRectObject getValue:&amp;keyboardEndRect];
+    
+    if (self.scrollView.frame.origin.y &lt; 44) {
+        CGRect viewRect = self.scrollView.frame;
+        viewRect.origin.y = 46;
+        [UIView beginAnimations:@"restoreViewContentInset" context:NULL];
+        [UIView setAnimationDuration:animationDuration];
+        self.scrollView.frame = viewRect;
+        [UIView commitAnimations];
+    }
+}
+
+#pragma mark 处理键盘事件结束</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>FBBDD7AA-FD4F-40E0-B202-D30B687CD7C8</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>keyboard event</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

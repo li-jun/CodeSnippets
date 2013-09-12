@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>ClassImplementation</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>#pragma mark MBProgressHUDDelegate
+
+- (void) hudWasHidden:(MBProgressHUD *)hud {
+    if (hud) {
+        [hud removeFromSuperview];
+        hud = nil;
+    }
+}
+
+- (void) hideHudView {
+    if (hudView)
+    {
+        [hudView hide:YES];
+    }
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>B6791F97-79AA-4555-90CE-B69D5DE23078</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C-Plus-Plus</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>MBProgressHUDDelegate</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

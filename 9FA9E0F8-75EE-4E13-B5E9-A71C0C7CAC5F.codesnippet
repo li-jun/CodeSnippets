@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>ClassImplementation</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>#pragma mark HqewHttpDelegate
+- (void) httpResponse:(int)error Code:(NSString *)code Data:(NSObject *)data {
+    if (error == 0) {
+        [self performSelectorOnMainThread:@selector(parseResultInfo:) withObject:data waitUntilDone:NO];
+    }
+    else {
+        NSLog(@"%s httpResponse error code(%@): %@", __func__, code, data);
+        [self performSelectorOnMainThread:@selector(showErrorMsg) withObject:nil waitUntilDone:NO];
+    }
+}
+
+- (void) parseResultInfo:(NSObject *)data {
+    HttpCmdResult *result = [[HttpCmdResult alloc] initWithData:data];
+    switch (result.resultCode) {
+        case 0:
+        {
+            
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+- (void) showErrorMsg {
+    [self hideHudView];
+    [Common showMessage:@"提示" showInfo:@"网络不太给力，请检查网络设置！" WithDelegate:nil];
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>9FA9E0F8-75EE-4E13-B5E9-A71C0C7CAC5F</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C-Plus-Plus</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>HqewHttpDelegate</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>
