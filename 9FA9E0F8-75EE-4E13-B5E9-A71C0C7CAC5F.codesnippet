@@ -31,9 +31,9 @@
     }
 }
 
-- (void) showErrorMsg {
+- (void) showErrorMsg:(NSString *)msg {
     [self hideHudView];
-    [Common showMessage:@"提示" showInfo:@"网络不太给力，请检查网络设置！" WithDelegate:nil];
+    [Common showMessage:@"提示" showInfo:msg WithDelegate:nil];
 }</string>
 	<key>IDECodeSnippetIdentifier</key>
 	<string>9FA9E0F8-75EE-4E13-B5E9-A71C0C7CAC5F</string>
